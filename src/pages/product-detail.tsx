@@ -1,19 +1,23 @@
+import { trpc } from "../utils/trpc";
+
 export default function ProductDetailPage() {
+  const productDetail = trpc.product.getProductDetail.useQuery();
   return (
     <div>
       <h1>Product Detail Page</h1>
       <hr />
       <div>
-        <div>Product Name: Apple</div>
+        <div>Product Name: {productDetail.data?.name}</div>
         <div>
-          Product Description: Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Qui veritatis nihil consequuntur officia explicabo
-          assumenda voluptates necessitatibus ipsum. Quia a, maiores odio
-          dolorem deleniti eum reprehenderit alias officia omnis obcaecati.
-        </div>
-        <div>Product Price: $2100</div>
-        <div>
-          Product Image: <img src="" alt="some product image here" />
+          Product Description: {productDetail.data?.description}
+          <div>Product Price: ${productDetail.data?.price}</div>
+          <div>
+            Product Image:{" "}
+            <img
+              src={productDetail.data?.previewImage}
+              alt="some product image here"
+            />
+          </div>
         </div>
       </div>
     </div>
